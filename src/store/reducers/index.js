@@ -1,6 +1,4 @@
 import { combineReducers } from 'redux';
-//import todos from './todo';
+import favorites from './favorites';
 
-export default combineReducers({
-  exemple: () => [],
-});
+export default combineReducers({ favorites });
