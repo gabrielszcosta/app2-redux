@@ -8,6 +8,11 @@ export const addFavoriteSuccess = (data) => ({
   payload: { data },
 });
 
+export const addFavoriteFailure = (error) => ({
+  type: 'ADD_FAVORITE_FAILURE',
+  payload: { error },
+});
+
 export const removeFavorite = (id) => ({
   type: 'REMOVE_FAVORITE',
   payload: { id },

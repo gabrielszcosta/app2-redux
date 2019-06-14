@@ -9,6 +9,8 @@ class Main extends Component {
   static propTypes = {
     addFavoriteRequest: PropTypes.func.isRequired,
     removeFavorite: PropTypes.func.isRequired,
+    loading: PropTypes.bool.isRequired,
+    error: PropTypes.string.isRequired,
     favorites: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.number,
@@ -18,6 +20,7 @@ class Main extends Component {
       }),
     ).isRequired,
   };
+
   state = {
     repositoryInput: '',
   };
@@ -25,6 +28,8 @@ class Main extends Component {
   handleAddRepository = (event) => {
     event.preventDefault();
     this.props.addFavoriteRequest(this.state.repositoryInput);
+
+    this.setState({ repositoryInput: '' });
   };
 
   handleRemoveRepository = (id) => {
@@ -41,6 +46,10 @@ class Main extends Component {
             onChange={(e) => this.setState({ repositoryInput: e.target.value })}
           />
           <button type="submit">Adicionar</button>
+          {this.props.loading && <span> Carregando...</span>}
+          {!!this.props.error && (
+            <span style={{ color: '#ff0000' }}> {this.props.error} </span>
+          )}
         </form>
         <ul>
           {this.props.favorites.map((favorite) => (
@@ -63,7 +72,9 @@ class Main extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  favorites: state.favorites,
+  favorites: state.favorites.data,
+  loading: state.favorites.loading,
+  error: state.favorites.error,
 });
 
 const mapDispatchToProps = (dispatch) =>
