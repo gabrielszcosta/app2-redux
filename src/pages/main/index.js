@@ -7,7 +7,8 @@ import * as FavoriteActions from '../../store/actions/favorites';
 
 class Main extends Component {
   static propTypes = {
-    addFavorite: PropTypes.func.isRequired,
+    addFavoriteRequest: PropTypes.func.isRequired,
+    removeFavorite: PropTypes.func.isRequired,
     favorites: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.number,
@@ -23,7 +24,11 @@ class Main extends Component {
 
   handleAddRepository = (event) => {
     event.preventDefault();
-    this.props.addFavorite();
+    this.props.addFavoriteRequest(this.state.repositoryInput);
+  };
+
+  handleRemoveRepository = (id) => {
+    this.props.removeFavorite(id);
   };
 
   render() {
@@ -42,6 +47,11 @@ class Main extends Component {
             <li key={favorite.id}>
               <p>
                 <strong>{favorite.name}</strong> ({favorite.description})
+                <button
+                  onClick={() => this.handleRemoveRepository(favorite.id)}
+                >
+                  Remover
+                </button>
               </p>
               <a href={favorite.url}>Acessar</a>
             </li>
