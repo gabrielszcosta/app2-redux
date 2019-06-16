@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as FavoriteActions from '../../store/actions/favorites';
+import { Creators as FavoriteActions } from '../../store/ducks/favorites';
 
 class Main extends Component {
   static propTypes = {
     addFavoriteRequest: PropTypes.func.isRequired,
     removeFavorite: PropTypes.func.isRequired,
     loading: PropTypes.bool.isRequired,
-    error: PropTypes.string.isRequired,
+    error: PropTypes.string,
     favorites: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.number,
